@@ -1,15 +1,20 @@
-# Stockroom
+# Stockroom React App
 
-React client for the LavaLust product API.
+React client for the Stockroom product API.
 
 ## Local development
 
-1. From the LavaLust project root, generate the API signing keys with `php lava jwt:generate` and configure the Aiven MySQL values in `.env`.
-2. Run the database migrations with `php lava migration run`.
-3. Start the API with `php lava serve`.
-4. Copy `.env.example` to `.env`, then run `npm install` and `npm run dev` from `frontend/`.
-5. Use the React client's **Create an account** form, then sign in without leaving the client.
+1. Start the API and make sure its CORS configuration allows the frontend origin.
+2. Copy `.env.example` to `.env` and set `VITE_API_BASE_URL` to the API origin. The example uses `http://127.0.0.1:3000` for local development.
+3. Run `npm ci` and `npm run dev` from this repository root.
 
-The client stores short-lived access and refresh tokens in `sessionStorage`; it never connects to MySQL directly. Set `VITE_API_BASE_URL` to the LavaLust API origin when deploying the frontend. On the API, set `API_ALLOW_ORIGIN` to the exact frontend origin and provide `JWT_SECRET`, `REFRESH_TOKEN_KEY`, and the Aiven `DB_*` values as Render environment variables. Do not add `.env` files or database credentials to either repository.
+The client stores short-lived access and refresh tokens in `sessionStorage`; it never connects to MySQL directly.
 
-For a static Render deployment, use `npm install` as the build command and `npm run build` as the publish output `dist`. Configure the frontend environment variable before building.
+## Render Static Site
+
+- Root directory: leave blank
+- Build command: `npm ci && npm run build`
+- Publish directory: `dist`
+- Environment variable: `VITE_API_BASE_URL` set to the deployed API origin
+
+On the API service, set `API_ALLOW_ORIGIN` to the exact Static Site origin. Do not add `.env` files or API credentials to this repository.
